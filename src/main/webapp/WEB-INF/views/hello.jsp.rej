@@ -1,0 +1,7 @@
+diff a/src/main/webapp/WEB-INF/views/hello.jsp b/src/main/webapp/WEB-INF/views/hello.jsp	(rejected hunks)
+@@ -21,3 +21,4 @@
+          
+         </body>
+         </html>
++         
+\ No newline at end of file
