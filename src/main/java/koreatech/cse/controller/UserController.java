@@ -7,11 +7,15 @@ import koreatech.cse.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @Controller
+
 @RequestMapping("/user")
 public class UserController {
     @Inject
@@ -29,13 +33,14 @@ public class UserController {
 
     @Transactional
     @RequestMapping(value="/signup", method= RequestMethod.POST)
+    @ResponseBody
     public String signup(@ModelAttribute User user) {
         userService.signup(user);
-        return "redirect:/user/userList";
+        return "success";
     }
 
 
-    @RequestMapping(value = "/userList", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model, @RequestParam(required=false) String name, @RequestParam(required=false) String email, @RequestParam(required=false) String order) {
         Searchable searchable = new Searchable();
         searchable.setName(name);
@@ -43,47 +48,7 @@ public class UserController {
         searchable.setOrderParam(order);
         //model.addAttribute("users", userMapper.findByProvider(searchable));
         model.addAttribute("users", userMapper.findByScript(searchable));
-        return "userList";
+        return "list";
     }
-
-
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String edit(@RequestParam int id, Model model) {
-        model.addAttribute("user", userMapper.findOne(id));
-        return "edit";
-    }
-
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String edit(@ModelAttribute User user) {
-        System.out.println("user = " + user);
-        userMapper.update(user);
-
-        return "redirect:/user/userList";
-    }
-
-
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String delete(@RequestParam int id) {
-        userMapper.delete(id);
-        return "redirect:/user/userList";
-    }
-
-    @RequestMapping("/signin")
-    public String signin() {
-        return "signin";
-    }
-
-    @RequestMapping(value="/signinSuccess")
-    public String signinSuccess() {
-        System.out.println("signin Success");
-        return "redirect:/";
-    }
-
-    @RequestMapping(value="/signinFailed")
-    public String signinFailed() {
-        System.out.println("signin Failed");
-        return "redirect:/";
-    }
-
 
 }
