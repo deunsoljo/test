@@ -2,15 +2,17 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
-  <title>Signup</title>
+  <title>Edit</title>
 </head>
 <body>
 <form:form modelAttribute="user">
+  <form:hidden path="id"/>
+
   name: <form:input path="name"/><br/>
   email: <form:input path="email"/><br/>
-  password: <form:password path="password"/><br/>
+  password: <form:input path="password"/><br/>
   age: <form:input path="age"/><br/>
-  <input type="submit" value="Signup"/>
+  <input type="submit" value="Edit"/>
 </form:form>
 </body>
 </html>

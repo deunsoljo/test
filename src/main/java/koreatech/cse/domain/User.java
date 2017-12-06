@@ -1,20 +1,12 @@
 package koreatech.cse.domain;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.List;
-
-public class User implements UserDetails {
-    private int id;
-    private String name;
-    private String email;   //이메일을 로그인 아이디로
-    private String password;    //비밀번호
+public class User {
+    private int id;         //primary key (Java로 코딩하지 않고 데이터베이스에 맡김)
+    private String name;    // -> name
+    private String email;   // -> email
+    private String password;
+    //private String homeAddress; // -> home_adress
     private int age;
-
-    private List<Authority> authorities;
 
     public int getId() {
         return id;
@@ -40,37 +32,8 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public String getUsername() {
-        return email;
-    }
-
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    public boolean isEnabled() {
-        return true;
-    }
-
-
-    public void setAuthorities(List<Authority> authorities) {
-        this.authorities = authorities;
     }
 
     public void setPassword(String password) {
@@ -84,33 +47,9 @@ public class User implements UserDetails {
     public void setAge(int age) {
         this.age = age;
     }
-
-    public static User current() {
-        try {
-            return (User) SecurityContextHolder.getContext()
-                    .getAuthentication().getPrincipal();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public boolean hasRole(String role) {
-        for(Authority authority: authorities) {
-            if(authority.getRole().equals(role))
-                return true;
-        }
-        return false;
-    }
-
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", age=" + age +
-                ", authorities=" + authorities +
-                '}';
+        return "id: " + id + ", name: " + name
+                + ", email: " + email + ", password: " + password + ", age: " + age;
     }
 }
