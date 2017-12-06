@@ -63,7 +63,6 @@
 </script>
 
 
-<%--
 <!--세차 지수 API 스크립트-->
 <script>
     var locationSelect = document.getElementById("selectBox");
@@ -79,7 +78,6 @@
             + "에서는 " + carwash_list['weather']['wIndex']['carWash'][selectValue]['comment'];
     });
 </script>
---%>
 
 <!--다음지도 스크립트-->
 <div id="local_box">
